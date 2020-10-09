@@ -14,7 +14,6 @@ import com.adriano.cursomc.domain.enums.EstadoPagamento;
 import com.adriano.cursomc.repositories.ItemPedidoRepository;
 import com.adriano.cursomc.repositories.PagamentoRepository;
 import com.adriano.cursomc.repositories.PedidoRepository;
-import com.adriano.cursomc.repositories.ProdutoRepository;
 import com.adriano.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -28,9 +27,6 @@ public class PedidoService {
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-
-	@Autowired
-	private ProdutoRepository produtoRepository;
 
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
