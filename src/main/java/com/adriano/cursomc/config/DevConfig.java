@@ -30,9 +30,9 @@ public class DevConfig {
 		dbService.instantiateTestDataBase();
 		return true;
 	}
-	
+
 	@Bean
-	public EmailService emailService(){
-	return new SmtpEmailService();
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 }

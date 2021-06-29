@@ -15,39 +15,38 @@ import com.adriano.cursomc.repositories.ClienteRepository;
 import com.adriano.cursomc.resources.exception.FieldMessage;
 import com.adriano.cursomc.services.validation.utils.BR;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO>{
-	
+public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+
 	@Autowired
 	private ClienteRepository repo;
-	
+
 	@Override
-	public void initialize(ClienteInsert ann) {	
+	public void initialize(ClienteInsert ann) {
 	}
-	
+
 	@Override
 	public boolean isValid(ClienteNewDTO objDTO, ConstraintValidatorContext context) {
-		
+
 		List<FieldMessage> list = new ArrayList<>();
-		
-		if(objDTO.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDTO.getCpfOuCnpj())) {
+
+		if (objDTO.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDTO.getCpfOuCnpj())) {
 			list.add(new FieldMessage("cpfOuCnpj", "CPF invalido"));
 		}
-		if(objDTO.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDTO.getCpfOuCnpj())) {
+		if (objDTO.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDTO.getCpfOuCnpj())) {
 			list.add(new FieldMessage("cpfOuCnpj", "CNPJ invalido"));
 		}
-		
+
 		Cliente aux = repo.findByEmail(objDTO.getEmail());
-			if(aux != null) {
-				list.add(new FieldMessage("email", "E-mail já existente!!"));
-			}
-				
-		
-		for (FieldMessage e :list) {
+		if (aux != null) {
+			list.add(new FieldMessage("email", "E-mail já existente!!"));
+		}
+
+		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
-			.addConstraintViolation();
+					.addConstraintViolation();
 		}
-		
+
 		return list.isEmpty();
 	}
 }

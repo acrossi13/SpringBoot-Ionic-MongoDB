@@ -9,14 +9,14 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-public class SmtpEmailService extends AbstractEmailService{
-	
+public class SmtpEmailService extends AbstractEmailService {
+
 	@Autowired
 	private MailSender mailsender;
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SmtpEmailService.class);
 
 	@Override
@@ -24,7 +24,7 @@ public class SmtpEmailService extends AbstractEmailService{
 		LOG.info("Enviando email...");
 		mailsender.send(msg);
 		LOG.info("Email enviado");
-		
+
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class SmtpEmailService extends AbstractEmailService{
 		LOG.info("Enviando email...");
 		javaMailSender.send(msg);
 		LOG.info("Email enviado");
-		
+
 	}
 
 }

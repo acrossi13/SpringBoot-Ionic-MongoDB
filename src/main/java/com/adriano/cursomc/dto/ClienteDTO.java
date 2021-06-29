@@ -11,23 +11,22 @@ import com.adriano.cursomc.domain.Cliente;
 import com.adriano.cursomc.services.validation.ClienteUpdate;
 
 @ClienteUpdate
-public class ClienteDTO implements Serializable{
+public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
 	private Integer id;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Length(min = 5, max = 120, message = "O tamanho deve ser no minimo 5 e no maximo 120 caractéres" )
+	@Length(min = 5, max = 120, message = "O tamanho deve ser no minimo 5 e no maximo 120 caractéres")
 	private String nome;
-	
+
 	@NotEmpty(message = "Preenchiemnto obrigatório")
 	@Email(message = "Email inválido")
 	private String email;
-	
+
 	public ClienteDTO() {
 	}
-	
+
 	public ClienteDTO(Cliente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
@@ -57,6 +56,5 @@ public class ClienteDTO implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
 }

@@ -16,42 +16,39 @@ import com.adriano.cursomc.dto.ClienteDTO;
 import com.adriano.cursomc.repositories.ClienteRepository;
 import com.adriano.cursomc.resources.exception.FieldMessage;
 
-public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO>{
-	
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+
 	@Autowired
 	private HttpServletRequest request;
-	
+
 	@Autowired
 	private ClienteRepository repo;
-	
+
 	@Override
-	public void initialize(ClienteUpdate ann) {	
+	public void initialize(ClienteUpdate ann) {
 	}
-	
-	
+
 	@Override
 	public boolean isValid(ClienteDTO objDTO, ConstraintValidatorContext context) {
-		
+
 		@SuppressWarnings("unchecked")
-		Map<String, String> map = (Map<String, String>)request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		Map<String, String> map = (Map<String, String>) request
+				.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		Integer uriId = Integer.parseInt(map.get("id"));
-		
+
 		List<FieldMessage> list = new ArrayList<>();
-		
-		
-		
+
 		Cliente aux = repo.findByEmail(objDTO.getEmail());
-			if(aux != null && !aux.getId().equals(uriId) ) {
-				list.add(new FieldMessage("email", "E-mail já existente!!"));
-			}
-				
-		
-		for (FieldMessage e :list) {
+		if (aux != null && !aux.getId().equals(uriId)) {
+			list.add(new FieldMessage("email", "E-mail já existente!!"));
+		}
+
+		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
-			.addConstraintViolation();
+					.addConstraintViolation();
 		}
-		
+
 		return list.isEmpty();
 	}
 }

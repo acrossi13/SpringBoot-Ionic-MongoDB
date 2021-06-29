@@ -20,7 +20,6 @@ public class ItemPedido implements Serializable {
 	private Double desconto;
 	private Integer quantidade;
 
-
 	private Double preco;
 
 	public ItemPedido() {
@@ -117,9 +116,10 @@ public class ItemPedido implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt" , "BR"));
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 		StringBuilder builder = new StringBuilder();
 		builder.append(getProduto().getNome());
 		builder.append(", Qte: ");
